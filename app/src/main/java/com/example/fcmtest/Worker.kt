@@ -9,9 +9,8 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.work.*
 import androidx.work.Worker
 
-import javax.xml.transform.Result
 
-class Worker(appContext: Context, workerParams: WorkerParameters) : Worker(appContext, workerParams) {
+class Worker(private val appContext: Context, workerParams: WorkerParameters) : Worker(appContext, workerParams) {
     override fun doWork(): Result {
         notification()
         return Result.success()
@@ -33,12 +32,12 @@ class Worker(appContext: Context, workerParams: WorkerParameters) : Worker(appCo
         var builder = NotificationCompat.Builder(appContext, "20")
             .setSmallIcon(R.drawable.ic_baseline_notifications_paused_24)
             .setContentTitle("My notification")
-            .setContentText("Much longer text that cannot fit one line...")
+            .setContentText("hello")
             .setStyle(
                 NotificationCompat.BigTextStyle()
-                    .bigText("Much longer text that cannot fit one line...")
+                    .bigText("hello, welcome back")
             )
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-        NotificationManagerCompat.from(this).notify(1, builder.build())
+        NotificationManagerCompat.from(appContext).notify(1, builder.build())
     }
 }
